@@ -76,8 +76,13 @@ namespace Chrono.Host
             }
 
             var hostSettings = HostSettingsProvider();
+            var storageSettings = new StorageSettings
+            {
+                IsSessionAutoCreate = hostSettings.IsSessionAutoCreate,
+                IsSessionAutoClose = hostSettings.IsSessionAutoClose
+            };
 
-            HostContext.Storage = StorageProvider(new StorageSettings { IsSessionAutoCreate = hostSettings.IsSessionAutoCreate });
+            HostContext.Storage = StorageProvider(storageSettings);
             HostContext.ClientService = ClientServiceProvider(HostContext);
             HostContext.ManageService = ManageServiceProvider(HostContext);
 

@@ -34,6 +34,12 @@ namespace Chrono.Client
             set;
         }
 
+        public string Parameters
+        {
+            get;
+            set;
+        }
+
         public string Value
         {
             get;

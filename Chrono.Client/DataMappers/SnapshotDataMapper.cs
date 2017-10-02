@@ -16,6 +16,7 @@
                 End = second.End,
                 SessionId = second.SessionId,
                 Key = second.Key,
+                Parameters = second.Parameters,
                 Value = second.Value
             };
 
@@ -36,6 +37,7 @@
                 End = first.End,
                 SessionId = first.SessionId,
                 Key = first.Key,
+                Parameters = first.Parameters,
                 Value = first.Value
             };
 

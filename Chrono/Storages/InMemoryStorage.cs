@@ -23,6 +23,11 @@ namespace Chrono.Storages
 
             var session = GetSession(snapshot.SessionId);
             session.AddSnapshot(snapshot);
+
+            if (settings.IsSessionAutoClose)
+            {
+                CloseSessionInternal(session);
+            }
         }
 
         public Session CreateSession()
@@ -43,6 +48,11 @@ namespace Chrono.Storages
         public void CloseSession(string sessionId)
         {
             var session = GetSession(sessionId);
+            CloseSessionInternal(session);
+        }
+
+        private void CloseSessionInternal(Session session)
+        {
             session.End = DateTime.Now;
         }
 

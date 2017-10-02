@@ -4,10 +4,11 @@ using Chrono.FileSystem.DataProviders;
 
 namespace Chrono.FileSystem.Storages
 {
+    //todo: apply StorageSettings
     public class FileStorage : IStorage
     {
-        private IStorage inMemoryStorage;
-        private IDataProvider dataProvider;
+        private readonly IStorage inMemoryStorage;
+        private readonly IDataProvider dataProvider;
 
         public FileStorage(StorageSettings settings)
         {

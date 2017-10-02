@@ -7,5 +7,11 @@
             get;
             set;
         }
+
+        public bool IsSessionAutoClose
+        {
+            get;
+            set;
+        }
     }
 }

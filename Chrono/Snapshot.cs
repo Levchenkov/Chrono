@@ -28,6 +28,12 @@ namespace Chrono
             set;
         }
 
+        public string Parameters
+        {
+            get;
+            set;
+        }
+
         public string Value
         {
             get;
