@@ -1,4 +1,6 @@
-﻿using Chrono.Client;
+﻿using System;
+using Chrono.Client;
+using Chrono.Common;
 using Chrono.Host.Services;
 using Chrono.Storages;
 
@@ -16,24 +18,71 @@ namespace Chrono.Host
             HostContext = new ChronoHostContext();         
         }
 
+        public Func<StorageSettings, IStorage> StorageProvider
+        {
+            get;
+            set;
+        }
+
+        public Func<HostSettings> HostSettingsProvider
+        {
+            get;
+            set;
+        }
+
         public ChronoHostBuilder WithInMemoryStorage()
         {
-            HostContext.Storage = new InMemoryStorage();
+            StorageProvider = settings => new InMemoryStorage(settings);
 
             return this;
         }
 
+        public ChronoHostBuilder UseHostSettings(HostSettings settings)
+        {
+            HostSettingsProvider = () => settings;
+
+            return this;
+        }
+
+        protected Func<StorageSettings, IStorage> DefaultStorageProvider
+        {
+            get
+            {
+                return settings => new InMemoryStorage(settings);
+            }
+        }
+
+        protected Func<ChronoHostContext, IChronoClientService> ClientServiceProvider
+        {
+            get
+            {
+                return hostContext => new ChronoClientService(hostContext.Storage);
+            }
+        }
+
+        protected Func<ChronoHostContext, IManageService> ManageServiceProvider
+        {
+            get
+            {
+                return hostContext => new ManageService(hostContext.Storage);
+            }
+        }
+
         public IChronoHostContext Build()
         {
-            if(HostContext.Storage == null)
+            if(StorageProvider == null)
             {
-                WithInMemoryStorage();
+                StorageProvider = DefaultStorageProvider;
             }
 
-            HostContext.ClientService = new ChronoClientService(HostContext.Storage);
-            HostContext.ManageService = new ManageService(HostContext.Storage);
+            var hostSettings = HostSettingsProvider();
+
+            HostContext.Storage = StorageProvider(new StorageSettings { IsSessionAutoCreate = hostSettings.IsSessionAutoCreate });
+            HostContext.ClientService = ClientServiceProvider(HostContext);
+            HostContext.ManageService = ManageServiceProvider(HostContext);
 
             return HostContext;
         }
     }
+
 }

@@ -7,10 +7,13 @@ namespace Chrono.Storages
 {
     public class InMemoryStorage : IStorage
     {
-        private IDictionary<string, Session> sessions;
+        private readonly IDictionary<string, Session> sessions;
+        private readonly StorageSettings settings;
 
-        public InMemoryStorage()
+        public InMemoryStorage(StorageSettings settings)
         {
+            this.settings = settings;
+
             sessions = new Dictionary<string, Session>();
         }
 
@@ -24,7 +27,14 @@ namespace Chrono.Storages
 
         public Session CreateSession()
         {
-            var session = CreateSessionInternal();
+            var session = CreateSession(null);
+
+            return session;
+        }
+
+        protected Session CreateSession(string sessionId)
+        {
+            var session = CreateSessionInternal(sessionId);
             sessions.Add(session.Id, session);
 
             return session;
@@ -40,6 +50,12 @@ namespace Chrono.Storages
         {
             if (!sessions.ContainsKey(sessionId))
             {
+                if (settings.IsSessionAutoCreate)
+                {
+                    var session = CreateSession(sessionId);
+                    return session;
+                }
+
                 throw new KeyNotFoundException();
             }
 
@@ -53,11 +69,16 @@ namespace Chrono.Storages
             return snapshot;
         }
 
-        private Session CreateSessionInternal()
+        private Session CreateSessionInternal(string sessionId = null)
         {
+            if (sessionId == null)
+            {
+                sessionId = Guid.NewGuid().ToString();
+            }
+
             var session = new Session
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = sessionId,
                 Begin = DateTime.Now
             };
 

@@ -9,9 +9,9 @@ namespace Chrono.FileSystem.Storages
         private IStorage inMemoryStorage;
         private IDataProvider dataProvider;
 
-        public FileStorage()
+        public FileStorage(StorageSettings settings)
         {
-            inMemoryStorage = new InMemoryStorage();
+            inMemoryStorage = new InMemoryStorage(settings);
             dataProvider = new JsonFileDataProvider();
         }
 

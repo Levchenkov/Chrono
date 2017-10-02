@@ -7,7 +7,7 @@ namespace Chrono.FileSystem.Extensions
     {
         public static ChronoHostBuilder WithFileStorage(this ChronoHostBuilder hostBuilder)
         {
-            hostBuilder.HostContext.Storage = new FileStorage();
+            hostBuilder.StorageProvider = settings => new FileStorage(settings);
 
             return hostBuilder;
         }

@@ -2,6 +2,16 @@
 {
     public class HostSettings
     {
+        public bool IsSessionAutoCreate
+        {
+            get;
+            set;
+        }
 
+        public bool IsSessionAutoClose
+        {
+            get;
+            set;
+        }
     }
 }
