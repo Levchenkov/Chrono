@@ -68,6 +68,7 @@
     <Compile Include="ChronoClientService.svc.cs">
       <DependentUpon>ChronoClientService.svc</DependentUpon>
     </Compile>
+    <Compile Include="ChronoHostConfigurator.cs" />
     <Compile Include="IChronoClientService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

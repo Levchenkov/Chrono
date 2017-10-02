@@ -40,15 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Host.cs" />
-    <Compile Include="HostBuilder.cs" />
-    <Compile Include="HostHolder.cs" />
+    <Compile Include="ChronoHostContext.cs" />
+    <Compile Include="ChronoHostBuilder.cs" />
     <Compile Include="HostSettings.cs" />
-    <Compile Include="IHost.cs" />
-    <Compile Include="IHostConfigurable.cs" />
+    <Compile Include="IChronoHostContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ClientService.cs" />
-    <Compile Include="Services\IClientService.cs" />
+    <Compile Include="Services\ChronoClientService.cs" />
     <Compile Include="Services\IManageService.cs" />
     <Compile Include="Services\ISessionModeService.cs" />
     <Compile Include="Services\ManageService.cs" />

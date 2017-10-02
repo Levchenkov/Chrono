@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Database", "Chrono.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client", "Chrono.Client\Chrono.Client.csproj", "{48AAED0C-E978-42A6-A091-39FAC3C9814A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client.MVC", "Chrono.Client.MVC\Chrono.Client.MVC.csproj", "{FDD6FD31-8104-4F8F-9407-61B4446FDB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client.Autofac", "Chrono.Client.Autofac\Chrono.Client.Autofac.csproj", "{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

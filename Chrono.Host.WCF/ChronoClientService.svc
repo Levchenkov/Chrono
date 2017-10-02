@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Chrono.Host.WCF.Service1" CodeBehind="ChronoClientService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Chrono.Host.WCF.ChronoClientService" CodeBehind="ChronoClientService.svc.cs" %>

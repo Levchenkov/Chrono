@@ -1,6 +1,4 @@
-﻿using System;
-using Chrono.Client;
-using Chrono.Host.Services;
+﻿using Chrono.Client;
 
 namespace Chrono.Host.WCF
 {
@@ -8,30 +6,30 @@ namespace Chrono.Host.WCF
     {
         public ChronoClientService()
         {
-            HostHolder.SetHostIfHostIsNull(() => new HostBuilder().WithInMemoryStorage().Build());
+            ChronoHostConfigurator.ConfigureHost();
         }
 
         public ChronoSnapshot FindLastSnapshotByKey(string sessionId, string key)
         {
-            var result = HostHolder.Host.ClientService.FindLastSnapshotByKey(sessionId, key);
+            var result = ChronoHostContext.Current.ClientService.FindLastSnapshotByKey(sessionId, key);
             return result;
         }
 
         public ChronoSession GetSession(string sessionId)
         {
-            var result = HostHolder.Host.ClientService.GetSession(sessionId);
+            var result = ChronoHostContext.Current.ClientService.GetSession(sessionId);
             return result;
         }
 
         public ChronoSessionMode GetSessionMode(string sessionId)
         {
-            var result = HostHolder.Host.ClientService.GetSessionMode(sessionId);
+            var result = ChronoHostContext.Current.ClientService.GetSessionMode(sessionId);
             return result;
         }
 
         public void Save(ChronoSnapshot chronoSnapshot)
         {
-            HostHolder.Host.ClientService.Save(chronoSnapshot);
+            ChronoHostContext.Current.ClientService.Save(chronoSnapshot);
         }
     }
 }
