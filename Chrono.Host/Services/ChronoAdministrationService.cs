@@ -2,17 +2,18 @@
 using Chrono.Client;
 using Chrono.Storages;
 using Chrono.Client.DataMappers;
+using Chrono.Administration;
 
 namespace Chrono.Host.Services
 {
-    public class ManageService : IManageService
+    public class ChronoAdministrationService : IChronoAdministrationService
     {
         private readonly ISessionModeService sessionModeService;
         private readonly IStorage storage;
         private readonly IDataMapper<Session, ChronoSession> sessionDataMapper;
         private readonly IDataMapper<Snapshot, ChronoSnapshot> snapshotDataMapper;
 
-        public ManageService(IStorage storage)
+        public ChronoAdministrationService(IStorage storage)
         {
             this.storage = storage;
             this.sessionDataMapper = new SessionDataMapper();

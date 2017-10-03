@@ -2,6 +2,7 @@
 using Chrono.Client;
 using Chrono.Storages;
 using Chrono.Host.Services;
+using Chrono.Administration;
 
 namespace Chrono.Host
 {
@@ -19,7 +20,7 @@ namespace Chrono.Host
             set;
         }
 
-        public IManageService ManageService
+        public IChronoAdministrationService AdministrationService
         {
             get;
             set;

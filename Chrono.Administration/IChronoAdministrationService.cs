@@ -1,8 +1,8 @@
 ﻿using Chrono.Client;
 
-namespace Chrono.Host.Services
+namespace Chrono.Administration
 {
-    public interface IManageService
+    public interface IChronoAdministrationService
     {
         void RecordSession(string sessionId);
 

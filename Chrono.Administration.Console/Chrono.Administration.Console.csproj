@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24BC5ED6-582C-4808-A99F-8C9F82A4724C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{D8394F2E-5F75-45F9-9F0F-511A8B043412}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chrono.Host</RootNamespace>
-    <AssemblyName>Chrono.Host</AssemblyName>
+    <RootNamespace>Chrono.Administration.Console</RootNamespace>
+    <AssemblyName>Chrono.Administration.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,31 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChronoHostContext.cs" />
-    <Compile Include="ChronoHostBuilder.cs" />
-    <Compile Include="HostSettings.cs" />
-    <Compile Include="IChronoHostContext.cs" />
+    <Compile Include="ChronoAdministrationConfigurator.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ChronoClientService.cs" />
-    <Compile Include="Services\ISessionModeService.cs" />
-    <Compile Include="Services\ChronoAdministrationService.cs" />
-    <Compile Include="Services\SessionModeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chrono.Administration\Chrono.Administration.csproj">
-      <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
+      <Project>{2d67b919-a1ae-450c-a3e7-7b04410af5af}</Project>
       <Name>Chrono.Administration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
-      <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
+      <Project>{48aaed0c-e978-42a6-a091-39fac3c9814a}</Project>
       <Name>Chrono.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chrono\Chrono.csproj">
-      <Project>{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}</Project>
-      <Name>Chrono</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

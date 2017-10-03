@@ -3,6 +3,7 @@ using Chrono.Client;
 using Chrono.Common;
 using Chrono.Host.Services;
 using Chrono.Storages;
+using Chrono.Administration;
 
 namespace Chrono.Host
 {
@@ -18,13 +19,13 @@ namespace Chrono.Host
             HostContext = new ChronoHostContext();         
         }
 
-        public Func<StorageSettings, IStorage> StorageProvider
+        internal Func<StorageSettings, IStorage> StorageProvider
         {
             get;
             set;
         }
 
-        public Func<HostSettings> HostSettingsProvider
+        internal Func<HostSettings> HostSettingsProvider
         {
             get;
             set;
@@ -60,11 +61,11 @@ namespace Chrono.Host
             }
         }
 
-        protected Func<ChronoHostContext, IManageService> ManageServiceProvider
+        protected Func<ChronoHostContext, IChronoAdministrationService> ManageServiceProvider
         {
             get
             {
-                return hostContext => new ManageService(hostContext.Storage);
+                return hostContext => new ChronoAdministrationService(hostContext.Storage);
             }
         }
 
@@ -84,7 +85,7 @@ namespace Chrono.Host
 
             HostContext.Storage = StorageProvider(storageSettings);
             HostContext.ClientService = ClientServiceProvider(HostContext);
-            HostContext.ManageService = ManageServiceProvider(HostContext);
+            HostContext.AdministrationService = ManageServiceProvider(HostContext);
 
             return HostContext;
         }

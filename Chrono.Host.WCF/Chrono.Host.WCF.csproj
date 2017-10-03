@@ -61,14 +61,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChronoAdministrationService.svc" />
     <Content Include="ChronoClientService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChronoAdministrationService.svc.cs">
+      <DependentUpon>ChronoAdministrationService.svc</DependentUpon>
+    </Compile>
     <Compile Include="ChronoClientService.svc.cs">
       <DependentUpon>ChronoClientService.svc</DependentUpon>
     </Compile>
     <Compile Include="ChronoHostConfigurator.cs" />
+    <Compile Include="IChronoAdministrationService.cs" />
     <Compile Include="IChronoClientService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +89,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chrono.Administration\Chrono.Administration.csproj">
+      <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
+      <Name>Chrono.Administration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
       <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
       <Name>Chrono.Client</Name>

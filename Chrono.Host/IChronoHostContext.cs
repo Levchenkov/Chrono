@@ -1,5 +1,5 @@
-﻿using Chrono.Client;
-using Chrono.Host.Services;
+﻿using Chrono.Administration;
+using Chrono.Client;
 using Chrono.Storages;
 
 namespace Chrono.Host
@@ -11,7 +11,7 @@ namespace Chrono.Host
             get;
         }
 
-        IManageService ManageService
+        IChronoAdministrationService AdministrationService
         {
             get;
         }
