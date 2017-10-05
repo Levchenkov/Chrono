@@ -46,7 +46,7 @@
     <Compile Include="DataMappers\IDataMapper.cs" />
     <Compile Include="DataMappers\SessionDataMapper.cs" />
     <Compile Include="DataMappers\SnapshotDataMapper.cs" />
-    <Compile Include="IChronoClientService.cs" />
+    <Compile Include="IClientService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

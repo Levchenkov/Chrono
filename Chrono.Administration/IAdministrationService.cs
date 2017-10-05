@@ -2,7 +2,7 @@
 
 namespace Chrono.Administration
 {
-    public interface IChronoAdministrationService
+    public interface IAdministrationService
     {
         void RecordSession(string sessionId);
 

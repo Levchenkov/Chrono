@@ -1,4 +1,4 @@
-﻿
+﻿using Chrono.Host.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +10,7 @@ namespace Chrono.Administration.Console
     {
         static void Main(string[] args)
         {
-            ChronoAdministrationConfigurator.Configure();
-            //var client = new ChronoAdministrationServiceClient();
-
-            //client.Close();
+            ChronoAdministrationConfigurator.Configure<IChronoAdministrationService>();            
 
             var processor = new Processor();
             processor.Run();
@@ -98,12 +95,70 @@ namespace Chrono.Administration.Console
         }
     }
 
+    public class CreateSessionCommand : ICommand
+    {
+        public string HelpText
+        {
+            get
+            {
+                return "Create a new session.";
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "CreateSession";
+            }
+        }
+
+        public string Execute(List<string> args)
+        {
+            var session = ChronoAdministrationContext<IChronoAdministrationService>.Current.AdministrationService.CreateSession();
+
+            return $"Session {session.Id} was created.";
+        }
+    }
+
+    public class CloseSessionCommand : ICommand
+    {
+        public string HelpText
+        {
+            get
+            {
+                return "Close the session by identifier.";
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "CloseSession";
+            }
+        }
+
+        public string Execute(List<string> args)
+        {
+            if(args.Count > 0)
+            {
+                var sessionId = args[0];
+                ChronoAdministrationContext<IChronoAdministrationService>.Current.AdministrationService.CloseSession(sessionId);
+                return $"Session {sessionId} was closed.";
+            }
+            return "Please, provide sessionId.";
+        }
+    }
+
     public class CommandHolder
     {
         public static IDictionary<string, ICommand> Commands = new Dictionary<string, ICommand>()
         {
             { "help", new HelpCommand() },
-            { "exit", new ExitCommand() }
+            { "exit", new ExitCommand() },
+            { "createsession", new CreateSessionCommand() },
+            { "closesession", new CloseSessionCommand() }
         };
     }
 

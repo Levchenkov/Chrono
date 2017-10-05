@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Administration.Conso
 		{2D59BDB8-E5B2-4EFE-B05E-6722842890BD} = {2D59BDB8-E5B2-4EFE-B05E-6722842890BD}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Host.Console", "Chrono.Host.Console\Chrono.Host.Console.csproj", "{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{D8394F2E-5F75-45F9-9F0F-511A8B043412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8394F2E-5F75-45F9-9F0F-511A8B043412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8394F2E-5F75-45F9-9F0F-511A8B043412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,13 +14,13 @@ namespace Chrono.Host
             set;
         }
 
-        public IChronoClientService ClientService
+        public IClientService ClientService
         {
             get;
             set;
         }
 
-        public IChronoAdministrationService AdministrationService
+        public IAdministrationService AdministrationService
         {
             get;
             set;

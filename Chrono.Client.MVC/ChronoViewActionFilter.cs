@@ -10,7 +10,7 @@ namespace Chrono.Client.MVC
 
         private DateTime Start; 
 
-        public IChronoClientService ClientService { get; set; }
+        public IClientService ClientService { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

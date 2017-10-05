@@ -45,9 +45,9 @@
     <Compile Include="HostSettings.cs" />
     <Compile Include="IChronoHostContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ChronoClientService.cs" />
+    <Compile Include="Services\ClientService.cs" />
     <Compile Include="Services\ISessionModeService.cs" />
-    <Compile Include="Services\ChronoAdministrationService.cs" />
+    <Compile Include="Services\AdministrationService.cs" />
     <Compile Include="Services\SessionModeService.cs" />
   </ItemGroup>
   <ItemGroup>

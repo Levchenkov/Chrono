@@ -53,19 +53,27 @@ namespace Chrono.Host
             }
         }
 
-        protected Func<ChronoHostContext, IChronoClientService> ClientServiceProvider
+        protected Func<HostSettings> DefaultHostSettingsProvider
         {
             get
             {
-                return hostContext => new ChronoClientService(hostContext.Storage);
+                return () => new HostSettings();
             }
         }
 
-        protected Func<ChronoHostContext, IChronoAdministrationService> ManageServiceProvider
+        protected Func<ChronoHostContext, IClientService> ClientServiceProvider
         {
             get
             {
-                return hostContext => new ChronoAdministrationService(hostContext.Storage);
+                return hostContext => new ClientService(hostContext.Storage);
+            }
+        }
+
+        protected Func<ChronoHostContext, IAdministrationService> ManageServiceProvider
+        {
+            get
+            {
+                return hostContext => new AdministrationService(hostContext.Storage);
             }
         }
 
@@ -74,6 +82,11 @@ namespace Chrono.Host
             if(StorageProvider == null)
             {
                 StorageProvider = DefaultStorageProvider;
+            }
+
+            if(HostSettingsProvider == null)
+            {
+                HostSettingsProvider = DefaultHostSettingsProvider;
             }
 
             var hostSettings = HostSettingsProvider();

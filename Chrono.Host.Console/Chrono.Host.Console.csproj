@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chrono.Administration</RootNamespace>
-    <AssemblyName>Chrono.Administration</AssemblyName>
+    <RootNamespace>Chrono.Host.Console</RootNamespace>
+    <AssemblyName>Chrono.Host.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,16 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChronoAdministrationBuilder.cs" />
-    <Compile Include="ChronoAdministrationContext.cs" />
-    <Compile Include="IChronoAdministrationContext.cs" />
-    <Compile Include="IAdministrationService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chrono.Administration\Chrono.Administration.csproj">
+      <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
+      <Name>Chrono.Administration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
       <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
       <Name>Chrono.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chrono.Host\Chrono.Host.csproj">
+      <Project>{24bc5ed6-582c-4808-a99f-8c9f82a4724c}</Project>
+      <Name>Chrono.Host</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -61,9 +61,10 @@
       <Project>{48aaed0c-e978-42a6-a091-39fac3c9814a}</Project>
       <Name>Chrono.Client</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\Chrono.Host.Console\Chrono.Host.Console.csproj">
+      <Project>{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}</Project>
+      <Name>Chrono.Host.Console</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

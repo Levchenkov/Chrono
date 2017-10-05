@@ -1,14 +1,31 @@
-﻿namespace Chrono.Administration
+﻿using System;
+
+namespace Chrono.Administration
 {
-    public class ChronoAdministrationContext : IChronoAdministrationContext
+    //public class ChronoAdministrationContext : IChronoAdministrationContext
+    //{
+    //    public static IChronoAdministrationContext Current
+    //    {
+    //        get;
+    //        set;
+    //    }
+
+    //    public IAdministrationService AdministrationService
+    //    {
+    //        get;
+    //        set;
+    //    }
+    //}
+
+    public class ChronoAdministrationContext<TAdminService> : IChronoAdministrationContext<TAdminService>
     {
-        public static ChronoAdministrationContext Current
+        public static IChronoAdministrationContext<TAdminService> Current
         {
             get;
             set;
         }
 
-        public IChronoAdministrationService AdministrationService
+        public TAdminService AdministrationService
         {
             get;
             set;

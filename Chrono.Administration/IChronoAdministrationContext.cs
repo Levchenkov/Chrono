@@ -2,7 +2,16 @@
 {
     public interface IChronoAdministrationContext
     {
-        IChronoAdministrationService AdministrationService
+        IAdministrationService AdministrationService
+        {
+            get;
+            set;
+        }
+    }
+
+    public interface IChronoAdministrationContext<TAdminService>
+    {
+        TAdminService AdministrationService
         {
             get;
             set;

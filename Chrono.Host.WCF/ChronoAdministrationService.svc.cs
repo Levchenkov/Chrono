@@ -1,9 +1,10 @@
 ﻿using System;
+using Chrono.Administration;
 using Chrono.Client;
 
 namespace Chrono.Host.WCF
 {
-    public class ChronoAdministrationService : IChronoAdministrationService
+    public class ChronoAdministrationService : IChronoAdministrationService, IAdministrationService
     {
         public ChronoAdministrationService()
         {

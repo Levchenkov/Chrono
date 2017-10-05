@@ -6,10 +6,10 @@ namespace Chrono.Client.Autofac
 {
     public class ChronoInterceptor : IInterceptor
     {
-        private readonly IChronoClientService clientService;
+        private readonly IClientService clientService;
         private const string SessionId = "SessionId";
 
-        public ChronoInterceptor(IChronoClientService clientService)
+        public ChronoInterceptor(IClientService clientService)
         {
             this.clientService = clientService;
         }

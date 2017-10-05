@@ -4,14 +4,14 @@ using Chrono.Storages;
 
 namespace Chrono.Host.Services
 {
-    public class ChronoClientService : IChronoClientService
+    public class ClientService : IClientService
     {
         private readonly ISessionModeService sessionModeService;
         private readonly IStorage storage;
         private readonly IDataMapper<Session, ChronoSession> sessionDataMapper;
         private readonly IDataMapper<Snapshot, ChronoSnapshot> snapshotDataMapper;
 
-        public ChronoClientService(IStorage storage)
+        public ClientService(IStorage storage)
         {
             
             this.storage = storage;

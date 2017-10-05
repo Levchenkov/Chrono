@@ -1,6 +1,6 @@
 ﻿namespace Chrono.Client
 {
-    public interface IChronoClientService
+    public interface IClientService
     {
         void Save(ChronoSnapshot chronoSnapshot);
 

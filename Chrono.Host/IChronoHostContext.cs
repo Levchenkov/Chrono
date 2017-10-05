@@ -6,12 +6,12 @@ namespace Chrono.Host
 {
     public interface IChronoHostContext
     {
-        IChronoClientService ClientService
+        IClientService ClientService
         {
             get;
         }
 
-        IChronoAdministrationService AdministrationService
+        IAdministrationService AdministrationService
         {
             get;
         }
