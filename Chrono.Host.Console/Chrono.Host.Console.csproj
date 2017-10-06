@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChronoAdministrationService.cs" />
+    <Compile Include="ChronoHostConfigurator.cs" />
+    <Compile Include="IChronoAdministrationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

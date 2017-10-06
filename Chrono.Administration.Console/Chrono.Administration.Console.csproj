@@ -46,6 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChronoAdministrationConfigurator.cs" />
+    <Compile Include="Commands\CloseSessionCommand.cs" />
+    <Compile Include="Commands\CommandHolder.cs" />
+    <Compile Include="Commands\CreateSessionCommand.cs" />
+    <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
