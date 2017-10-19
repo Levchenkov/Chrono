@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DataProviders\FileDataProvider.cs" />
     <Compile Include="DataProviders\JsonFileDataProvider.cs" />
+    <Compile Include="DataProviders\SessionJsonConverter.cs" />
     <Compile Include="Extensions\HostBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storages\FileStorage.cs" />

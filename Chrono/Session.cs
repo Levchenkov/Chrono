@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Chrono
 {
+    [DataContract]
     public class Session
     {
         public Session()
@@ -10,24 +12,28 @@ namespace Chrono
             Snapshots = new Dictionary<string, Snapshot>();
         }
 
+        [DataMember]
         public string Id
         {
             get;
             set;
         }
 
+        [DataMember]
         public DateTime Begin
         {
             get;
             set;
-        } 
+        }
 
+        [DataMember]
         public DateTime? End
         {
             get;
             set;
         }
 
+        [DataMember]
         public IDictionary<string, Snapshot> Snapshots
         {
             get;

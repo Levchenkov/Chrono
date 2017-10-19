@@ -7,19 +7,25 @@ namespace Chrono.Host.Console
     {
         static void Main(string[] args)
         {
-            var baseAddress = new Uri("http://localhost:12345/ChronoAdministrationService");
+            var administrationServiceAddress = new Uri("http://localhost:12345/ChronoAdministrationService");
+            var clientServiceAddress = new Uri("http://localhost:12345/ChronoClientService");
 
             //todo: why ServiceHost supports only classes and ChannelFactory supports only interfaces?
-            using (ServiceHost host = new ServiceHost(typeof(ChronoAdministrationService), baseAddress))
+            using (ServiceHost clientServiceHost = new ServiceHost(typeof(ChronoClientService), clientServiceAddress))
             {
-                host.Open();
+                clientServiceHost.Open();
+                using (ServiceHost administrationServiceHost = new ServiceHost(typeof(ChronoAdministrationService), administrationServiceAddress))
+                {
+                    administrationServiceHost.Open();
 
-                System.Console.WriteLine("The service is ready at {0}", baseAddress);
-                System.Console.WriteLine("Press <Enter> to stop the service.");
-                System.Console.ReadLine();
+                    System.Console.WriteLine("The service is ready at {0}", administrationServiceAddress);
+                    System.Console.WriteLine("Press <Enter> to stop the service.");
+                    System.Console.ReadLine();
 
-                // Close the ServiceHost.
-                host.Close();
+                    // Close the ServiceHost.
+                    administrationServiceHost.Close();
+                }
+                clientServiceHost.Close();
             }
         }
     }

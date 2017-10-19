@@ -4,21 +4,27 @@ using Chrono.FileSystem.DataProviders;
 
 namespace Chrono.FileSystem.Storages
 {
-    //todo: apply StorageSettings
     public class FileStorage : IStorage
     {
         private readonly IStorage inMemoryStorage;
         private readonly IDataProvider dataProvider;
+        private readonly StorageSettings settings;
 
         public FileStorage(StorageSettings settings)
         {
             inMemoryStorage = new InMemoryStorage(settings);
             dataProvider = new JsonFileDataProvider();
+            this.settings = settings;
         }
 
         public void Add(Snapshot snapshot)
         {
             inMemoryStorage.Add(snapshot);
+
+            if (settings.IsSessionAutoClose)
+            {
+                dataProvider.AddSnapshot(snapshot);
+            }
         }
 
         public void CloseSession(string sessionId)
