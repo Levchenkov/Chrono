@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Chrono.Exceptions;
 
 namespace Chrono.Storages
 {
-    public class InMemoryStorage : IStorage
+    public class InMemoryStorage : IInMemoryStorage
     {
         private readonly IDictionary<string, Session> sessions;
         private readonly StorageSettings settings;
@@ -30,6 +31,21 @@ namespace Chrono.Storages
             }
         }
 
+        public void Add(Session session)
+        {
+            if (sessions.ContainsKey(session.Id))
+            {
+                sessions.Remove(session.Id);
+            }
+
+            sessions.Add(session.Id, session);
+        }
+
+        public void Clear()
+        {
+            sessions.Clear();
+        }
+
         public Session CreateSession()
         {
             var session = CreateSession(null);
@@ -37,7 +53,7 @@ namespace Chrono.Storages
             return session;
         }
 
-        protected Session CreateSession(string sessionId)
+        public Session CreateSession(string sessionId)
         {
             var session = CreateSessionInternal(sessionId);
             sessions.Add(session.Id, session);
@@ -58,41 +74,55 @@ namespace Chrono.Storages
 
         public Session GetSession(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionId))
-            {
-                if (settings.IsSessionAutoCreate)
-                {
-                    var session = CreateSession(sessionId);
-                    return session;
-                }
+            var sessionResult = GetSessionSave(sessionId);
 
-                throw new KeyNotFoundException();
+            if (sessionResult.IsSuccessful)
+            {
+                return sessionResult.Value;
             }
 
-            return sessions[sessionId];
+            throw new SessionNotFoundException();
+        }
+
+        public FuncResult<Session> GetSessionSave(string sessionId)
+        {
+            var result = GetSessionInternal(sessionId);
+            if (result.IsSuccessful)
+            {
+                return result;
+            }
+
+            if (settings.IsSessionAutoCreate)
+            {
+                var session = CreateSession(sessionId);
+                return session.AsFuncResult();
+            }
+
+            return FuncResult.Failed<Session>();
         }
 
         public Snapshot GetSnapshot(string sessionId, string snapshotId)
         {
-            var session = GetSession(sessionId);
-            var snapshot = session.GetSnapshot(snapshotId);
-            return snapshot;
-        }
+            var snapshotResult = GetSnapshotSave(sessionId, snapshotId);
 
-        private Session CreateSessionInternal(string sessionId = null)
-        {
-            if (sessionId == null)
+            if (snapshotResult.IsSuccessful)
             {
-                sessionId = Guid.NewGuid().ToString();
+                return snapshotResult.Value;
             }
 
-            var session = new Session
-            {
-                Id = sessionId,
-                Begin = DateTime.Now
-            };
+            throw new SnapshotNotFoundException();
+        }
 
-            return session;
+        public FuncResult<Snapshot> GetSnapshotSave(string sessionId, string snapshotId)
+        {
+            var sessionResult = GetSessionSave(sessionId);
+            if (sessionResult.IsSuccessful)
+            {
+                var snapshotResult = sessionResult.Value.GetSnapshotSave(snapshotId);
+                return snapshotResult;
+            }
+            
+            return FuncResult.Failed<Snapshot>();
         }
 
         public void RemoveSession(string sessionId)
@@ -110,6 +140,11 @@ namespace Chrono.Storages
             session.RemoveSnapshot(snapshotId);
         }
 
+        public bool DoesSessionExist(string sessionId)
+        {
+            return sessions.ContainsKey(sessionId);
+        }
+
         public Snapshot FindLastSnapshotByKey(string sessionId, string key)
         {
             var session = GetSession(sessionId);
@@ -118,6 +153,32 @@ namespace Chrono.Storages
             Contract.NotNull<ArgumentException>(snapshot);
 
             return snapshot;
+        }
+
+        protected FuncResult<Session> GetSessionInternal(string sessionId)
+        {
+            if (!sessions.ContainsKey(sessionId))
+            {
+                return FuncResult.Failed<Session>();
+            }
+
+            return sessions[sessionId].AsFuncResult();
+        }
+
+        private Session CreateSessionInternal(string sessionId = null)
+        {
+            if (sessionId == null)
+            {
+                sessionId = Guid.NewGuid().ToString();
+            }
+
+            var session = new Session
+            {
+                Id = sessionId,
+                Begin = DateTime.Now
+            };
+
+            return session;
         }
     }
 }

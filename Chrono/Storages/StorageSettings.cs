@@ -13,5 +13,11 @@
             get;
             set;
         }
+
+        public bool IsEnabledFileCache
+        {
+            get;
+            set;
+        }
     }
 }

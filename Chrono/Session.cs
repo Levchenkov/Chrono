@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Chrono.Exceptions;
 
 namespace Chrono
 {
@@ -49,13 +50,25 @@ namespace Chrono
 
         public Snapshot GetSnapshot(string snapshotId)
         {
-            if (!Snapshots.ContainsKey(snapshotId))
+            var result = GetSnapshotSave(snapshotId);
+
+            if (result.IsSuccessful)
             {
-                throw new KeyNotFoundException();
+                return result.Value;
             }
 
-            return Snapshots[snapshotId];
+            throw new SnapshotNotFoundException();
         }
+
+        public FuncResult<Snapshot> GetSnapshotSave(string snapshotId)
+        {
+            if (!Snapshots.ContainsKey(snapshotId))
+            {
+                return FuncResult.Failed<Snapshot>();
+            }
+
+            return Snapshots[snapshotId].AsFuncResult();
+        } 
 
         public void RemoveSnapshot(string snapshotId)
         {

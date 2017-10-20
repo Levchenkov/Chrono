@@ -8,7 +8,11 @@
 
         Session GetSession(string sessionId);
 
+        FuncResult<Session> GetSessionSave(string sessionId);
+
         Snapshot GetSnapshot(string sessionId, string snapshotId);
+
+        FuncResult<Snapshot> GetSnapshotSave(string sessionId, string snapshotId);
 
         void RemoveSession(string sessionId);
 

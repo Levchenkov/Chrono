@@ -57,7 +57,12 @@ namespace Chrono.Host
         {
             get
             {
-                return () => new HostSettings();
+                return () => new HostSettings
+                {
+                    IsEnabledFileCache = true,
+                    IsSessionAutoCreate = false,
+                    IsSessionAutoClose = false
+                };
             }
         }
 
@@ -93,7 +98,8 @@ namespace Chrono.Host
             var storageSettings = new StorageSettings
             {
                 IsSessionAutoCreate = hostSettings.IsSessionAutoCreate,
-                IsSessionAutoClose = hostSettings.IsSessionAutoClose
+                IsSessionAutoClose = hostSettings.IsSessionAutoClose,
+                IsEnabledFileCache = hostSettings.IsEnabledFileCache
             };
 
             HostContext.Storage = StorageProvider(storageSettings);

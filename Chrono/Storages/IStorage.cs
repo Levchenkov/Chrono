@@ -12,6 +12,10 @@
 
         Snapshot GetSnapshot(string sessionId, string snapshotId);
 
+        FuncResult<Session> GetSessionSave(string sessionId);
+
+        FuncResult<Snapshot> GetSnapshotSave(string sessionId, string snapshotId);
+
         Snapshot FindLastSnapshotByKey(string sessionId, string key);
 
         void RemoveSession(string sessionId);

@@ -43,9 +43,15 @@
   <ItemGroup>
     <Compile Include="DataProviders\IDataProvider.cs" />
     <Compile Include="Common\Contract.cs" />
+    <Compile Include="Exceptions\SessionNotFoundException.cs" />
+    <Compile Include="Exceptions\SnapshotNotFoundException.cs" />
+    <Compile Include="FuncResult.cs" />
+    <Compile Include="FuncResult.Generic.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Snapshot.cs" />
+    <Compile Include="Storages\IInMemoryStorage.cs" />
     <Compile Include="Storages\InMemoryStorage.cs" />
     <Compile Include="Storages\IStorage.cs" />
     <Compile Include="Storages\StorageSettings.cs" />
