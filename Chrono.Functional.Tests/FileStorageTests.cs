@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Chrono.Functional.Tests
 {
+    //TODO: Add support of StorageSettings.IsEnabledFileChache
+    //TODO: when save session, save snapshot in separate files. Create option?
     [TestClass]
     public class FileStorageTests
     {
@@ -248,9 +250,56 @@ namespace Chrono.Functional.Tests
             resultFromMemory.Should().NotBeNull();
         }
 
-        public void CloseSession()
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CloseSession_SessionIdIsNull_ExpectedException()
         {
-            
+            subject.CloseSession(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SessionNotFoundException))]
+        public void CloseSession_SessionIdProvidedAndSessionDoesNotExistInMemory_ExceptionExpected()
+        {
+            subject.CloseSession("NotExistingSessionId");
+        }
+
+        [TestMethod]
+        public void CloseSession_SessionIdProvided_FileWithSessionShouldBeCreated()
+        {
+            var snapshot = new Snapshot
+            {
+                Id = "SnapshotId",
+                Begin = DateTime.Now,
+                End = DateTime.Now,
+                Key = "key",
+                Parameters = "parameter",
+                Value = "value"
+            };
+
+            var session = new Session
+            {
+                Id = "SessionId",
+                Begin = DateTime.Now
+            };
+
+            session.AddSnapshot(snapshot);
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(session);
+
+            subject.CloseSession(session.Id);
+
+            var sessionFromFile = dataProvider.GetSession(session.Id);
+            sessionFromFile.Should().NotBeNull();
+            sessionFromFile.Id.Should().Be(session.Id);
+            sessionFromFile.Snapshots.Count.Should().Be(session.Snapshots.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveSession_SessionIdIsNull_ExpectedException()
+        {
+            subject.RemoveSession(null);
         }
 
         [TestMethod]
@@ -275,14 +324,113 @@ namespace Chrono.Functional.Tests
             resultFromFile.IsSuccessful.Should().BeFalse();
         }
 
-        public void RemoveSnapshot()
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveSnapshot_SessionIdIsNull_ExpectedException()
         {
-            
+            subject.RemoveSnapshot(null, "qwe");
         }
 
-        public void FindLastSnapshotByKey()
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveSnapshot_SnapshotIdIsNull_ExpectedException()
         {
-            
+            subject.RemoveSnapshot("qwe", null);
+        }
+
+        [TestMethod]
+        public void RemoveSnapshot_SessionIdAndSnapshotIdProvided_SnapshotShouldBeRemovedFromMemoryAndFile()
+        {
+            var snapshot = new Snapshot
+            {
+                Id = "SnapshotId"
+            };
+
+            var session = new Session
+            {
+                Id = "SessionId"
+            };
+
+            session.AddSnapshot(snapshot);
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(session);
+            dataProvider.AddSnapshot(snapshot);
+
+            subject.RemoveSnapshot(snapshot.SessionId, snapshot.Id);
+
+            var resultFromMemory = inMemoryStorage.GetSnapshotSave(snapshot.SessionId, snapshot.Id);
+            resultFromMemory.IsSuccessful.Should().BeFalse();
+
+            var resultFromFile = dataProvider.GetSnapshotSave(snapshot.SessionId, snapshot.Id);
+            resultFromFile.IsSuccessful.Should().BeFalse();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FindLastSnapshotByKey_SessionIdIsNull_ExpectedException()
+        {
+            subject.FindLastSnapshotByKey(null, "qwe");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FindLastSnapshotByKey_KeyIsNull_ExpectedException()
+        {
+            subject.FindLastSnapshotByKey("SessionId", null);
+        }
+
+        [TestMethod]
+        public void FindLastSnapshotByKey_SessionExistInMemory_SessionShouldBeLoadedFromMemory()
+        {
+            var snapshot = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value"
+            };
+
+            var session = new Session
+            {
+                Id = "SessionId"
+            };
+
+            session.AddSnapshot(snapshot);
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(session);
+            dataProvider.RemoveSession(session.Id);
+
+            var result = subject.FindLastSnapshotByKey(session.Id, "key");
+            result.Should().NotBeNull();
+            result.Id.Should().Be(snapshot.Id);
+            result.Key.Should().Be("key");
+            result.Value.Should().Be("value");
+        }
+
+        [TestMethod]
+        public void FindLastSnapshotByKey_SessionDoesNotExistInMemoryAndExistInFile_SessionShouldBeLoadedFromFile()
+        {
+            var snapshot = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value"
+            };
+
+            var session = new Session
+            {
+                Id = "SessionId"
+            };
+
+            session.AddSnapshot(snapshot);
+            inMemoryStorage.Clear();
+            dataProvider.AddSession(session);
+
+            var result = subject.FindLastSnapshotByKey(session.Id, "key");
+
+            result.Should().NotBeNull();
+            result.Id.Should().Be(snapshot.Id);
+            result.Key.Should().Be("key");
+            result.Value.Should().Be("value");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Chrono.DataProviders;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Chrono.Common;
@@ -46,6 +47,7 @@ namespace Chrono.FileSystem.DataProviders
             if (resultFromFile.IsSuccessful)
             {
                 var session = Deserialize<Session>(resultFromFile.Value);
+                session = FillSnapshotsFromSnapshotFiles(session);
                 return session.AsFuncResult();
             }
 
@@ -138,11 +140,18 @@ namespace Chrono.FileSystem.DataProviders
         private string GetPathForSession(string sessionId)
         {
             var fileName = GetFileNameForSession(sessionId);
-            var rootPath = GetRootDirectoryPath();
-            var directoryPath = Path.Combine(rootPath, $"Session.{sessionId}");
+            var directoryPath = GetDirectoryPathForSession(sessionId);
             Directory.CreateDirectory(directoryPath);
             var filePath = Path.Combine(directoryPath, fileName);
             return filePath;
+        }
+
+        private string GetDirectoryPathForSession(string sessionId)
+        {
+            var rootPath = GetRootDirectoryPath();
+            var directoryPath = Path.Combine(rootPath, $"Session.{sessionId}");
+
+            return directoryPath;
         }
 
         private string GetPathForSnapshot(string sessionId, string snapshotId)
@@ -163,6 +172,49 @@ namespace Chrono.FileSystem.DataProviders
         private string GetFileNameForSnapshot(string snapshotId)
         {
             return $"Snapshot.{snapshotId}.txt";
+        }
+
+        private Session FillSnapshotsFromSnapshotFiles(Session session)
+        {
+            var fromFiles = ReadSnapshotsFromSnapshotFiles(session.Id);
+            session = AddOrReplaceIfNewer(session, fromFiles);
+            return session;
+        }
+
+        private Session AddOrReplaceIfNewer(Session session, IEnumerable<Snapshot> snapshots)
+        {
+            foreach (var snapshot in snapshots)
+            {
+                session.AddSnapshotOrReplaceIfNewer(snapshot);
+            }
+
+            return session;
+        }
+
+        private IEnumerable<Snapshot> ReadSnapshotsFromSnapshotFiles(string sessionId)
+        {
+            var result = new List<Snapshot>();
+            var sessionDirectory = GetDirectoryPathForSession(sessionId);
+
+            var filePaths = Directory.GetFiles(sessionDirectory);
+
+            foreach (var filePath in filePaths)
+            {
+                if (filePath.StartsWith("Snapshot."))
+                {
+                    var resultFromFile = ReadFromFile(filePath);
+                    if (resultFromFile.IsSuccessful)
+                    {
+                        var snapshot = Deserialize<Snapshot>(resultFromFile.Value);
+                        if (snapshot.SessionId == sessionId)
+                        {
+                            result.Add(snapshot);
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

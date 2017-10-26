@@ -149,12 +149,15 @@ namespace Chrono.Storages
 
         public Snapshot FindLastSnapshotByKey(string sessionId, string key)
         {
-            var session = GetSession(sessionId);
-            var snapshot = session.Snapshots.Values.LastOrDefault(x => x.Key == key);
+            var result = GetSessionSave(sessionId);
+            if (result.IsSuccessful)
+            {
+                var snapshot = result.Value.Snapshots.Values.LastOrDefault(x => x.Key == key);
 
-            Contract.NotNull<ArgumentException>(snapshot);
+                return snapshot;
+            }
 
-            return snapshot;
+            return null;
         }
 
         protected FuncResult<Session> GetSessionInternal(string sessionId)

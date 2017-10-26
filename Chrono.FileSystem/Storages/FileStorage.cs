@@ -1,4 +1,6 @@
-﻿using Chrono.Storages;
+﻿using System;
+using Chrono.Common;
+using Chrono.Storages;
 using Chrono.DataProviders;
 using Chrono.Exceptions;
 using Chrono.FileSystem.DataProviders;
@@ -37,6 +39,8 @@ namespace Chrono.FileSystem.Storages
 
         public void CloseSession(string sessionId)
         {
+            Contract.NotNull<ArgumentNullException>(sessionId);
+
             inMemoryStorage.CloseSession(sessionId);
             var session = inMemoryStorage.GetSession(sessionId);
             dataProvider.AddSession(session);
@@ -108,19 +112,41 @@ namespace Chrono.FileSystem.Storages
 
         public void RemoveSession(string sessionId)
         {
+            Contract.NotNull<ArgumentNullException>(sessionId);
+
             inMemoryStorage.RemoveSession(sessionId);
             dataProvider.RemoveSession(sessionId);
         }
 
         public void RemoveSnapshot(string sessionId, string snapshotId)
         {
+            Contract.NotNull<ArgumentNullException>(sessionId);
+            Contract.NotNull<ArgumentNullException>(snapshotId);
+
             inMemoryStorage.RemoveSnapshot(sessionId, snapshotId);
             dataProvider.RemoveSnapshot(sessionId, snapshotId);
         }
 
         public Snapshot FindLastSnapshotByKey(string sessionId, string key)
         {
-            return inMemoryStorage.FindLastSnapshotByKey(sessionId, key);
+            Contract.NotNull<ArgumentNullException>(sessionId);
+            Contract.NotNull<ArgumentNullException>(key);
+
+            var fromMemory = inMemoryStorage.FindLastSnapshotByKey(sessionId, key);
+
+            if (fromMemory == null)
+            {
+                var resultFromFile = dataProvider.GetSessionSave(sessionId);
+
+                if (resultFromFile.IsSuccessful)
+                {
+                    inMemoryStorage.Add(resultFromFile.Value);
+                    fromMemory = inMemoryStorage.FindLastSnapshotByKey(sessionId, key);
+                    return fromMemory;
+                }
+            }
+
+            return fromMemory;
         }
     }
 }

@@ -48,6 +48,24 @@ namespace Chrono
             snapshot.SessionId = Id;
         }
 
+        public void AddSnapshotOrReplaceIfNewer(Snapshot snaphot)
+        {
+            if (Snapshots.ContainsKey(snaphot.Id))
+            {
+                var existingSnapshot = Snapshots[snaphot.Id];
+
+                if (existingSnapshot.Begin <= snaphot.Begin)
+                {
+                    Snapshots.Remove(existingSnapshot.Id);
+                    AddSnapshot(snaphot);
+                }
+            }
+            else
+            {
+                AddSnapshot(snaphot);
+            }
+        }
+
         public Snapshot GetSnapshot(string snapshotId)
         {
             var result = GetSnapshotSave(snapshotId);

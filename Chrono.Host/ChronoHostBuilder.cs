@@ -89,12 +89,13 @@ namespace Chrono.Host
                 StorageProvider = DefaultStorageProvider;
             }
 
-            if(HostSettingsProvider == null)
+            var hostSettings = DefaultHostSettingsProvider();
+            if (HostSettingsProvider != null)
             {
-                HostSettingsProvider = DefaultHostSettingsProvider;
+                var customSettings = HostSettingsProvider();
+                hostSettings = MergeProperties(hostSettings, customSettings);
             }
 
-            var hostSettings = HostSettingsProvider();
             var storageSettings = new StorageSettings
             {
                 IsSessionAutoCreate = hostSettings.IsSessionAutoCreate,
@@ -107,6 +108,29 @@ namespace Chrono.Host
             HostContext.AdministrationService = ManageServiceProvider(HostContext);
 
             return HostContext;
+        }
+
+        private TType MergeProperties<TType>(TType defaultValues, TType customValues) where TType : new()
+        {
+            var result = new TType();
+
+            var properties = typeof (TType).GetProperties();
+            foreach (var property in properties)
+            {
+                var defaultValue = property.GetValue(defaultValues);
+                var customValue = property.GetValue(customValues);
+
+                if (defaultValue == customValue)
+                {
+                    property.SetValue(result, defaultValue);
+                }
+                else
+                {
+                    property.SetValue(result, customValue);
+                }
+            }
+
+            return result;
         }
     }
 
