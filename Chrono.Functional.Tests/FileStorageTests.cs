@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Chrono.Functional.Tests
 {
-    //TODO: Add support of StorageSettings.IsEnabledFileChache
     //TODO: when save session, save snapshot in separate files. Create option?
     [TestClass]
     public class FileStorageTests
@@ -431,6 +430,92 @@ namespace Chrono.Functional.Tests
             result.Id.Should().Be(snapshot.Id);
             result.Key.Should().Be("key");
             result.Value.Should().Be("value");
+        }
+
+        [TestMethod]
+        public void FindLastSnapshotByKey_SessionExistInMemoryAndExistInFileAndFileChacheDisabled_SessionShouldBeLoadedFromFile()
+        {
+            var snapshotInMemory = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value"
+            };
+
+            var sessionInMemory = new Session
+            {
+                Id = "SessionId"
+            };
+
+            sessionInMemory.AddSnapshot(snapshotInMemory);
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(sessionInMemory);
+
+            var snapshotInFile = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value2"
+            };
+
+            var sessionInFile = new Session
+            {
+                Id = "SessionId"
+            };
+
+            sessionInFile.AddSnapshot(snapshotInFile);
+            dataProvider.AddSession(sessionInFile);
+
+            var result = subject.FindLastSnapshotByKey("SessionId", "key");
+
+            result.Key.Should().Be("key");
+            result.Value.Should().Be("value");
+        }
+
+        [TestMethod]
+        public void FindLastSnapshotByKey_SessionExistInMemoryAndExistInFileAndFileChacheEnabled_SessionShouldBeLoadedFromFile()
+        {
+            var settings = new StorageSettings
+            {
+                IsEnabledFileCache = false
+            };
+            subject = new FileStorage(inMemoryStorage, settings);
+
+            var snapshotInMemory = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value"
+            };
+
+            var sessionInMemory = new Session
+            {
+                Id = "SessionId"
+            };
+
+            sessionInMemory.AddSnapshot(snapshotInMemory);
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(sessionInMemory);
+
+            var snapshotInFile = new Snapshot
+            {
+                Id = "SnapshotId",
+                Key = "key",
+                Value = "value2"
+            };
+
+            var sessionInFile = new Session
+            {
+                Id = "SessionId"
+            };
+
+            sessionInFile.AddSnapshot(snapshotInFile);
+            dataProvider.AddSession(sessionInFile);
+
+            var result = subject.FindLastSnapshotByKey("SessionId", "key");
+
+            result.Key.Should().Be("key");
+            result.Value.Should().Be("value2");
         }
     }
 }

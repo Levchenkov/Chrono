@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Chrono.Common;
 using Chrono.Storages;
 using Chrono.DataProviders;
@@ -132,21 +133,17 @@ namespace Chrono.FileSystem.Storages
             Contract.NotNull<ArgumentNullException>(sessionId);
             Contract.NotNull<ArgumentNullException>(key);
 
-            var fromMemory = inMemoryStorage.FindLastSnapshotByKey(sessionId, key);
+            var sessionResult = GetSessionSave(sessionId);
 
-            if (fromMemory == null)
+            if (sessionResult.IsSuccessful)
             {
-                var resultFromFile = dataProvider.GetSessionSave(sessionId);
+                var session = sessionResult.Value;
+                var snapshot = session.Snapshots.Values.LastOrDefault(x => x.Key == key);
 
-                if (resultFromFile.IsSuccessful)
-                {
-                    inMemoryStorage.Add(resultFromFile.Value);
-                    fromMemory = inMemoryStorage.FindLastSnapshotByKey(sessionId, key);
-                    return fromMemory;
-                }
+                return snapshot;
             }
 
-            return fromMemory;
+            return null;
         }
     }
 }
