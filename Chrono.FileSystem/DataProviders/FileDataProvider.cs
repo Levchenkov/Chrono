@@ -87,7 +87,10 @@ namespace Chrono.FileSystem.DataProviders
 
             var filePath = GetPathForSession(sessionId);
             var directoryPath = Path.GetDirectoryName(filePath);
-            File.Delete(filePath);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
 
             if (!Directory.GetFiles(directoryPath).Any())
             {

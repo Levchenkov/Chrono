@@ -109,11 +109,13 @@ namespace Chrono.FileSystem.Storages
         public void RemoveSession(string sessionId)
         {
             inMemoryStorage.RemoveSession(sessionId);
+            dataProvider.RemoveSession(sessionId);
         }
 
         public void RemoveSnapshot(string sessionId, string snapshotId)
         {
             inMemoryStorage.RemoveSnapshot(sessionId, snapshotId);
+            dataProvider.RemoveSnapshot(sessionId, snapshotId);
         }
 
         public Snapshot FindLastSnapshotByKey(string sessionId, string key)

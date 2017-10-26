@@ -219,8 +219,7 @@ namespace Chrono.Functional.Tests
         {
             var settings = new StorageSettings
             {
-                IsSessionAutoClose = true,
-
+                IsSessionAutoClose = true
             };
 
             subject = new FileStorage(inMemoryStorage, settings);
@@ -254,9 +253,26 @@ namespace Chrono.Functional.Tests
             
         }
 
-        public void RemoveSession()
+        [TestMethod]
+        public void RemoveSession_SessionIdProvided_SessionShouldBeRemovedFromMemoryAndFile()
         {
-            
+            var sessionId = "SessionId";
+            var session = new Session
+            {
+                Id = sessionId
+            };
+
+            inMemoryStorage.Clear();
+            inMemoryStorage.Add(session);
+            dataProvider.AddSession(session);
+
+            subject.RemoveSession(sessionId);
+
+            var resultFromMemory = inMemoryStorage.GetSessionSave(sessionId);
+            resultFromMemory.IsSuccessful.Should().BeFalse();
+
+            var resultFromFile = dataProvider.GetSessionSave(sessionId);
+            resultFromFile.IsSuccessful.Should().BeFalse();
         }
 
         public void RemoveSnapshot()

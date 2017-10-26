@@ -72,12 +72,10 @@ namespace Chrono
 
         public void RemoveSnapshot(string snapshotId)
         {
-            if (!Snapshots.ContainsKey(snapshotId))
+            if (Snapshots.ContainsKey(snapshotId))
             {
-                throw new KeyNotFoundException();
+                Snapshots.Remove(snapshotId);
             }
-
-            Snapshots.Remove(snapshotId);
         }
     }
 }

@@ -127,17 +127,19 @@ namespace Chrono.Storages
 
         public void RemoveSession(string sessionId)
         {
-            if (!sessions.ContainsKey(sessionId))
+            if (sessions.ContainsKey(sessionId))
             {
-                throw new KeyNotFoundException();
+                sessions.Remove(sessionId);
             }
-            sessions.Remove(sessionId);
         }
 
         public void RemoveSnapshot(string sessionId, string snapshotId)
         {
-            var session = GetSession(sessionId);
-            session.RemoveSnapshot(snapshotId);
+            var result = GetSessionSave(sessionId);
+            if (result.IsSuccessful)
+            {
+                result.Value.RemoveSnapshot(snapshotId);
+            }
         }
 
         public bool DoesSessionExist(string sessionId)
