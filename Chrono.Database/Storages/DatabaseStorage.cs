@@ -11,6 +11,11 @@ namespace Chrono.Database.Storages
             throw new NotImplementedException();
         }
 
+        public Session CreateSession(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CloseSession(string sessionId)
         {
             throw new NotImplementedException();

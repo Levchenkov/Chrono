@@ -11,6 +11,11 @@ namespace Chrono.Host.WCF
             ChronoHostConfigurator.ConfigureHost();
         }
 
+        public ChronoSession CreateSession(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CloseSession(string sessionId)
         {
             ChronoHostContext.Current.AdministrationService.CloseSession(sessionId);
