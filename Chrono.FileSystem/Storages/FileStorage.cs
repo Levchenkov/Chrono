@@ -38,6 +38,13 @@ namespace Chrono.FileSystem.Storages
             }
         }
 
+        public Session CreateSession(string sessionId)
+        {
+            var result = inMemoryStorage.CreateSession(sessionId);
+
+            return result;
+        }
+
         public void CloseSession(string sessionId)
         {
             Contract.NotNull<ArgumentNullException>(sessionId);

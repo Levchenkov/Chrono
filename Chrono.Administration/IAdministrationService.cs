@@ -10,6 +10,8 @@ namespace Chrono.Administration
 
         ChronoSession CreateSession();
 
+        ChronoSession CreateSession(string sessionId);
+
         void CloseSession(string sessionId);
 
         void RemoveSession(string sessionId);

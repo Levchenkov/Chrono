@@ -4,6 +4,8 @@
     {
         Session CreateSession();
 
+        Session CreateSession(string sessionId);
+
         void CloseSession(string sessionId);
 
         void Add(Snapshot snapshot);

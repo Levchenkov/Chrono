@@ -21,6 +21,15 @@ namespace Chrono.Host.Services
             this.sessionModeService = new SessionModeService();
         }
 
+        public ChronoSession CreateSession(string sessionId)
+        {
+            var session = storage.CreateSession(sessionId);
+            var chronoSession = sessionDataMapper.Map(session);
+            chronoSession.Mode = sessionModeService.GetSessionMode(session.Id);
+
+            return chronoSession;
+        }
+
         public void CloseSession(string sessionId)
         {
             storage.CloseSession(sessionId);

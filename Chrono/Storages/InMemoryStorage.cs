@@ -55,10 +55,18 @@ namespace Chrono.Storages
 
         public Session CreateSession(string sessionId)
         {
-            var session = CreateSessionInternal(sessionId);
-            sessions.Add(session.Id, session);
+            if (sessionId != null && sessions.ContainsKey(sessionId))
+            {
+                var session = GetSession(sessionId);
+                return session;
+            }
+            else
+            {
+                var session = CreateSessionInternal(sessionId);
+                sessions.Add(session.Id, session);
 
-            return session;
+                return session;
+            }
         }
 
         public void CloseSession(string sessionId)

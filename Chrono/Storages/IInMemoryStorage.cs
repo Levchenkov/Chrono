@@ -4,8 +4,6 @@ namespace Chrono.Storages
     {
         bool DoesSessionExist(string sessionId);
 
-        Session CreateSession(string sessionId);
-
         void Add(Session session);
 
         void Clear();

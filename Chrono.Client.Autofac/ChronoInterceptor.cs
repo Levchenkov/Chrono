@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Castle.DynamicProxy;
 using Newtonsoft.Json;
 
@@ -39,7 +40,8 @@ namespace Chrono.Client.Autofac
                 if (invocation.Method.ReturnType != typeof(void))
                 {
                     var key = $"{invocation.TargetType.FullName}.{invocation.Method.Name}";
-                    var value = JsonConvert.SerializeObject(invocation.ReturnValue);
+                    var value = JsonConvert.SerializeObject(invocation.ReturnValue, Formatting.Indented);
+                    var parameters = string.Join(",", invocation.Arguments.Select(JsonConvert.SerializeObject).ToArray());
 
                     var snapshot = new ChronoSnapshot
                     {
@@ -47,6 +49,7 @@ namespace Chrono.Client.Autofac
                         Key = key,
                         SessionId = SessionId,
                         Value = value,
+                        Parameters = parameters,
                         Begin = begin,
                         End = DateTime.Now
                     };
