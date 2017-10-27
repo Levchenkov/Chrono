@@ -15,10 +15,5 @@ namespace Chrono.Host
         {
             get;
         }
-
-        IStorage Storage
-        {
-            get;
-        }
     }
 }

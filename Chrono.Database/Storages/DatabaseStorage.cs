@@ -21,6 +21,11 @@ namespace Chrono.Database.Storages
             throw new NotImplementedException();
         }
 
+        public FuncResult<Snapshot> GetSnapshotSave(string sessionId, string snapshotId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Snapshot FindLastSnapshotByKey(string sessionId, string key)
         {
             throw new NotImplementedException();
@@ -32,6 +37,11 @@ namespace Chrono.Database.Storages
         }
 
         public Snapshot GetSnapshot(string sessionId, string snapshotId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FuncResult<Session> GetSessionSave(string sessionId)
         {
             throw new NotImplementedException();
         }

@@ -20,7 +20,17 @@ namespace Chrono.Database.DataProviders
             throw new NotImplementedException();
         }
 
+        public FuncResult<Session> GetSessionSave(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Snapshot GetSnapshot(string sessionId, string snapshotId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FuncResult<Snapshot> GetSnapshotSave(string sessionId, string snapshotId)
         {
             throw new NotImplementedException();
         }

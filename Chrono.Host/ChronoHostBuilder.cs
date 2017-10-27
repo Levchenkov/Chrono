@@ -66,19 +66,19 @@ namespace Chrono.Host
             }
         }
 
-        protected Func<ChronoHostContext, IClientService> ClientServiceProvider
+        protected Func<IStorage, IClientService> ClientServiceProvider
         {
             get
             {
-                return hostContext => new ClientService(hostContext.Storage);
+                return storage => new ClientService(storage);
             }
         }
 
-        protected Func<ChronoHostContext, IAdministrationService> ManageServiceProvider
+        protected Func<IStorage, IAdministrationService> AdministrationServiceProvider
         {
             get
             {
-                return hostContext => new AdministrationService(hostContext.Storage);
+                return storage => new AdministrationService(storage);
             }
         }
 
@@ -103,9 +103,9 @@ namespace Chrono.Host
                 IsEnabledFileCache = hostSettings.IsEnabledFileCache
             };
 
-            HostContext.Storage = StorageProvider(storageSettings);
-            HostContext.ClientService = ClientServiceProvider(HostContext);
-            HostContext.AdministrationService = ManageServiceProvider(HostContext);
+            var storage = StorageProvider(storageSettings);
+            HostContext.ClientService = ClientServiceProvider(storage);
+            HostContext.AdministrationService = AdministrationServiceProvider(storage);
 
             return HostContext;
         }

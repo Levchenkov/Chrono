@@ -25,11 +25,5 @@ namespace Chrono.Host
             get;
             set;
         }
-
-        public IStorage Storage
-        {
-            get;
-            set;
-        }
     }
 }
