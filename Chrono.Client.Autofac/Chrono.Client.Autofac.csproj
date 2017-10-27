@@ -64,6 +64,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chrono.Administration\Chrono.Administration.csproj">
+      <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
+      <Name>Chrono.Administration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
       <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
       <Name>Chrono.Client</Name>

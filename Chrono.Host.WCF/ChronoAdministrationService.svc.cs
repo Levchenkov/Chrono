@@ -32,6 +32,11 @@ namespace Chrono.Host.WCF
             ChronoHostContext.Current.AdministrationService.PlaySession(sessionId);
         }
 
+        public bool ShouldIntercept(string classFullName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RecordSession(string sessionId)
         {
             ChronoHostContext.Current.AdministrationService.RecordSession(sessionId);

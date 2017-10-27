@@ -51,7 +51,11 @@ namespace Chrono.FileSystem.Storages
 
             inMemoryStorage.CloseSession(sessionId);
             var session = inMemoryStorage.GetSession(sessionId);
-            dataProvider.AddSession(session);
+
+            if (session.Snapshots.Count > 0 || settings.IsEmptySessionAllowed)
+            {
+                dataProvider.AddSession(session);
+            }
         }
 
         public Session CreateSession()

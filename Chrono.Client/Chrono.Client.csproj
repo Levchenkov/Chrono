@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChronoConfiguration.cs" />
     <Compile Include="ChronoSession.cs" />
     <Compile Include="ChronoSessionMode.cs" />
     <Compile Include="ChronoSnapshot.cs" />
     <Compile Include="DataMappers\IDataMapper.cs" />
     <Compile Include="DataMappers\SessionDataMapper.cs" />
     <Compile Include="DataMappers\SnapshotDataMapper.cs" />
+    <Compile Include="IChronoSesssionIdHolder.cs" />
     <Compile Include="IClientService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

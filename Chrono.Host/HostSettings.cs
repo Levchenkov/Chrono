@@ -28,5 +28,14 @@
             get;
             set;
         }
+
+        /// <summary>
+        /// Write to file session with empty snapshots.
+        /// </summary>
+        public bool IsEmptySessionAllowed
+        {
+            get;
+            set;
+        }
     }
 }

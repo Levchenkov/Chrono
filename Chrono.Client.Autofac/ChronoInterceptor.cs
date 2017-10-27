@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Castle.DynamicProxy;
+using Chrono.Administration;
 using Newtonsoft.Json;
 
 namespace Chrono.Client.Autofac
@@ -8,24 +9,53 @@ namespace Chrono.Client.Autofac
     public class ChronoInterceptor : IInterceptor
     {
         private readonly IClientService clientService;
-        private const string SessionId = "SessionId";
+        private readonly IChronoSesssionIdHolder sessionIdHolder;
+        private readonly IAdministrationService administrationService;
 
-        public ChronoInterceptor(IClientService clientService)
+
+        public ChronoInterceptor(IClientService clientService, IAdministrationService administrationService, IChronoSesssionIdHolder sessionIdHolder)
         {
             this.clientService = clientService;
+            this.administrationService = administrationService;
+            this.sessionIdHolder = sessionIdHolder;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            var mode = clientService.GetSessionMode(SessionId);
+            if (administrationService.ShouldIntercept(invocation.TargetType.FullName))
+            {
+                var sessionId = sessionIdHolder.GetSessionId();
+
+                if (sessionId == null)
+                {
+                    invocation.Proceed();
+                }
+                else
+                {
+                    ProceedWithChrono(invocation, sessionId);
+                }
+            }
+            else
+            {
+                invocation.Proceed();
+            }
+        }
+
+        private void ProceedWithChrono(IInvocation invocation, string sessionId)
+        {
+            var mode = clientService.GetSessionMode(sessionId);
 
             if (mode == ChronoSessionMode.Play)
             {
-                if (invocation.Method.ReturnType != typeof(void))
+                if (invocation.Method.ReturnType == typeof (void))
+                {
+                    invocation.Proceed();
+                }   
+                else
                 {
                     var key = $"{invocation.TargetType.FullName}.{invocation.Method.Name}";
-                    
-                    var snapshot = clientService.FindLastSnapshotByKey(SessionId, key);
+
+                    var snapshot = clientService.FindLastSnapshotByKey(sessionId, key);
                     var stringValue = snapshot.Value;
                     var value = JsonConvert.DeserializeObject(stringValue, invocation.Method.ReturnType);
                     invocation.ReturnValue = value;
@@ -40,14 +70,16 @@ namespace Chrono.Client.Autofac
                 if (invocation.Method.ReturnType != typeof(void))
                 {
                     var key = $"{invocation.TargetType.FullName}.{invocation.Method.Name}";
-                    var value = JsonConvert.SerializeObject(invocation.ReturnValue, Formatting.Indented);
-                    var parameters = string.Join(",", invocation.Arguments.Select(JsonConvert.SerializeObject).ToArray());
+                    var value = JsonConvert.SerializeObject(invocation.ReturnValue);
+
+                    var parameterDictionary = invocation.Method.GetParameters().ToDictionary(x => x.Name, x => invocation.Arguments[x.Position]);
+                    var parameters = JsonConvert.SerializeObject(parameterDictionary);
 
                     var snapshot = new ChronoSnapshot
                     {
                         Id = Guid.NewGuid().ToString(),
                         Key = key,
-                        SessionId = SessionId,
+                        SessionId = sessionId,
                         Value = value,
                         Parameters = parameters,
                         Begin = begin,

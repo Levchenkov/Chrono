@@ -31,6 +31,12 @@ namespace Chrono.Host
             set;
         }
 
+        internal Func<ChronoConfiguration> ConfigurationProvider
+        {
+            get;
+            set;
+        }
+
         public ChronoHostBuilder WithInMemoryStorage()
         {
             StorageProvider = settings => new InMemoryStorage(settings);
@@ -41,6 +47,13 @@ namespace Chrono.Host
         public ChronoHostBuilder UseHostSettings(HostSettings settings)
         {
             HostSettingsProvider = () => settings;
+
+            return this;
+        }
+
+        public ChronoHostBuilder UseConfiguration(ChronoConfiguration configuration)
+        {
+            ConfigurationProvider = () => configuration;
 
             return this;
         }
@@ -61,7 +74,8 @@ namespace Chrono.Host
                 {
                     IsEnabledFileCache = true,
                     IsSessionAutoCreate = false,
-                    IsSessionAutoClose = false
+                    IsSessionAutoClose = false,
+                    IsEmptySessionAllowed = false
                 };
             }
         }
@@ -74,11 +88,11 @@ namespace Chrono.Host
             }
         }
 
-        protected Func<IStorage, IAdministrationService> AdministrationServiceProvider
+        protected Func<IStorage, ChronoConfiguration, IAdministrationService> AdministrationServiceProvider
         {
             get
             {
-                return storage => new AdministrationService(storage);
+                return (storage, config) => new AdministrationService(storage, config);
             }
         }
 
@@ -100,12 +114,20 @@ namespace Chrono.Host
             {
                 IsSessionAutoCreate = hostSettings.IsSessionAutoCreate,
                 IsSessionAutoClose = hostSettings.IsSessionAutoClose,
-                IsEnabledFileCache = hostSettings.IsEnabledFileCache
+                IsEnabledFileCache = hostSettings.IsEnabledFileCache,
+                IsEmptySessionAllowed = hostSettings.IsEmptySessionAllowed
             };
+
+            ChronoConfiguration configuration= null;
+
+            if (ConfigurationProvider != null)
+            {
+                configuration = ConfigurationProvider();
+            }
 
             var storage = StorageProvider(storageSettings);
             HostContext.ClientService = ClientServiceProvider(storage);
-            HostContext.AdministrationService = AdministrationServiceProvider(storage);
+            HostContext.AdministrationService = AdministrationServiceProvider(storage, configuration);
 
             return HostContext;
         }

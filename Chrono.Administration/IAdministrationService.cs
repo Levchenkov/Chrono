@@ -4,6 +4,8 @@ namespace Chrono.Administration
 {
     public interface IAdministrationService
     {
+        bool ShouldIntercept(string classFullName);
+
         void RecordSession(string sessionId);
 
         void PlaySession(string sessionId);

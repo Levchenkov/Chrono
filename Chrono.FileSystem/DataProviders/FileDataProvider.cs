@@ -149,7 +149,8 @@ namespace Chrono.FileSystem.DataProviders
         private string GetDirectoryPathForSession(string sessionId)
         {
             var rootPath = GetRootDirectoryPath();
-            var directoryPath = Path.Combine(rootPath, $"Session.{sessionId}");
+            var dateTime = DateTime.Now.ToString("yyyy-MM-dd");
+            var directoryPath = Path.Combine(rootPath, $"Session.{dateTime}");
 
             return directoryPath;
         }
@@ -157,8 +158,7 @@ namespace Chrono.FileSystem.DataProviders
         private string GetPathForSnapshot(string sessionId, string snapshotId)
         {
             var fileName = GetFileNameForSnapshot(snapshotId);
-            var rootPath = GetRootDirectoryPath();
-            var directoryPath = Path.Combine(rootPath, $"Session.{sessionId}");
+            var directoryPath = GetDirectoryPathForSession(sessionId);
             Directory.CreateDirectory(directoryPath);
             var filePath = Path.Combine(directoryPath, fileName);
             return filePath;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Chrono.Client;
 using Chrono.Storages;
 using Chrono.Client.DataMappers;
@@ -12,10 +13,12 @@ namespace Chrono.Host.Services
         private readonly IStorage storage;
         private readonly IDataMapper<Session, ChronoSession> sessionDataMapper;
         private readonly IDataMapper<Snapshot, ChronoSnapshot> snapshotDataMapper;
+        private readonly ChronoConfiguration configuration;
 
-        public AdministrationService(IStorage storage)
+        public AdministrationService(IStorage storage, ChronoConfiguration configuration)
         {
             this.storage = storage;
+            this.configuration = configuration;
             this.sessionDataMapper = new SessionDataMapper();
             this.snapshotDataMapper = new SnapshotDataMapper();
             this.sessionModeService = new SessionModeService();
@@ -47,6 +50,19 @@ namespace Chrono.Host.Services
         public void PlaySession(string sessionId)
         {
             sessionModeService.PlaySession(sessionId);
+        }
+
+        public bool ShouldIntercept(string classFullName)
+        {
+            if (configuration.IsChronoEnabled)
+            {
+                if (configuration.EnableChronoForClasses.Contains(classFullName))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void RecordSession(string sessionId)
