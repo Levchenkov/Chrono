@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChronoClassConfiguration.cs" />
     <Compile Include="ChronoConfiguration.cs" />
     <Compile Include="ChronoSession.cs" />
     <Compile Include="ChronoSessionMode.cs" />

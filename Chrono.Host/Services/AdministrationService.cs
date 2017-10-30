@@ -56,7 +56,8 @@ namespace Chrono.Host.Services
         {
             if (configuration.IsChronoEnabled)
             {
-                if (configuration.EnableChronoForClasses.Contains(classFullName))
+                var classConfiguration = configuration.EnableChronoForClasses.FirstOrDefault(x => x.Name == classFullName);
+                if (classConfiguration != null && classConfiguration.IsEnabled)
                 {
                     return true;
                 }

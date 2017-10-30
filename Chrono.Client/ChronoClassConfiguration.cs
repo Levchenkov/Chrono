@@ -1,14 +1,14 @@
 ﻿namespace Chrono.Client
 {
-    public class ChronoConfiguration
+    public class ChronoClassConfiguration
     {
-        public bool IsChronoEnabled
+        public string Name
         {
             get;
             set;
         }
 
-        public ChronoClassConfiguration[] EnableChronoForClasses
+        public bool IsEnabled
         {
             get;
             set;

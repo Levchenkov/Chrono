@@ -67,26 +67,28 @@ namespace Chrono.Client.Autofac
                 var begin = DateTime.Now;
                 invocation.Proceed();
 
+                var key = $"{invocation.TargetType.FullName}.{invocation.Method.Name}";
+                var parameterDictionary = invocation.Method.GetParameters().ToDictionary(x => x.Name, x => invocation.Arguments[x.Position]);
+                var parameters = JsonConvert.SerializeObject(parameterDictionary);
+
+                var snapshot = new ChronoSnapshot
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Key = key,
+                    SessionId = sessionId,
+                    Parameters = parameters,
+                    Begin = begin,
+                    End = DateTime.Now
+                };
+
                 if (invocation.Method.ReturnType != typeof(void))
                 {
-                    var key = $"{invocation.TargetType.FullName}.{invocation.Method.Name}";
                     var value = JsonConvert.SerializeObject(invocation.ReturnValue);
 
-                    var parameterDictionary = invocation.Method.GetParameters().ToDictionary(x => x.Name, x => invocation.Arguments[x.Position]);
-                    var parameters = JsonConvert.SerializeObject(parameterDictionary);
-
-                    var snapshot = new ChronoSnapshot
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Key = key,
-                        SessionId = sessionId,
-                        Value = value,
-                        Parameters = parameters,
-                        Begin = begin,
-                        End = DateTime.Now
-                    };
-                    clientService.Save(snapshot);
+                    snapshot.Value = value;
                 }
+
+                clientService.Save(snapshot);
             }
         }
     }
