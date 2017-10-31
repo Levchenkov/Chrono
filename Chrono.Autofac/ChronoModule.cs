@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Chrono.Host;
 
-namespace Chrono.Client.Autofac
+namespace Chrono.Autofac
 {
     public class ChronoModule : Module
     {

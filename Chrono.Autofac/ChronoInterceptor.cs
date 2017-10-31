@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Castle.DynamicProxy;
-using Chrono.Administration;
+using Chrono.Client;
 using Newtonsoft.Json;
 
-namespace Chrono.Client.Autofac
+namespace Chrono.Autofac
 {
     public class ChronoInterceptor : IInterceptor
     {
