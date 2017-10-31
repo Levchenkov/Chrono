@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Chrono</id>
+    <id>Chrono.Autofac</id>
     <version>0.1</version>
-    <title>Chrono</title>
+    <title>Chrono.Autofac</title>
     <authors>Eugene Levchenkov</authors>
     <owners>Eugene Levchenkov</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Logs method parameters and it result.</description>
+    <description>Helpful interceptor and module</description>
     <releaseNotes>First release.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>logger logging logs</tags>
@@ -21,8 +21,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\Chrono.dll" target="lib\net45\Chrono.dll" />
-    <file src="bin\Release\Chrono.pdb" target="lib\net45\Chrono.pdb" />
     <file src="bin\Release\Chrono.Autofac.dll" target="lib\net45\Chrono.Autofac.dll" />
     <file src="bin\Release\Chrono.Autofac.pdb" target="lib\net45\Chrono.Autofac.pdb" />
 </files>
