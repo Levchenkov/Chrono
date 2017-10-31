@@ -93,13 +93,9 @@
       <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
       <Name>Chrono.Administration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
-      <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
-      <Name>Chrono.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Chrono.Host\Chrono.Host.csproj">
-      <Project>{24BC5ED6-582C-4808-A99F-8C9F82A4724C}</Project>
-      <Name>Chrono.Host</Name>
+    <ProjectReference Include="..\Chrono\Chrono.csproj">
+      <Project>{ae2a3625-67c5-4e7e-9348-cd1bbd093e2a}</Project>
+      <Name>Chrono</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

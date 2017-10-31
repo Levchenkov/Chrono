@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -41,20 +45,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\IAdministrationService.cs" />
+    <Compile Include="Administration\IChronoSessionManager.cs" />
+    <Compile Include="Client\ChronoClassConfiguration.cs" />
+    <Compile Include="Client\ChronoConfiguration.cs" />
+    <Compile Include="Client\ChronoSession.cs" />
+    <Compile Include="Client\ChronoSessionMode.cs" />
+    <Compile Include="Client\ChronoSnapshot.cs" />
+    <Compile Include="Client\DataMappers\IDataMapper.cs" />
+    <Compile Include="Client\DataMappers\SessionDataMapper.cs" />
+    <Compile Include="Client\DataMappers\SnapshotDataMapper.cs" />
+    <Compile Include="Client\IChronoSesssionIdProvider.cs" />
+    <Compile Include="Client\IClientService.cs" />
+    <Compile Include="DataProviders\FileDataProvider.cs" />
     <Compile Include="DataProviders\IDataProvider.cs" />
     <Compile Include="Common\Contract.cs" />
+    <Compile Include="DataProviders\JsonFileDataProvider.cs" />
+    <Compile Include="DataProviders\SessionJsonConverter.cs" />
     <Compile Include="Exceptions\SessionNotFoundException.cs" />
     <Compile Include="Exceptions\SnapshotNotFoundException.cs" />
     <Compile Include="FuncResult.cs" />
     <Compile Include="FuncResult.Generic.cs" />
+    <Compile Include="Host\ChronoHost.cs" />
+    <Compile Include="Host\ChronoHostBuilder.cs" />
+    <Compile Include="Host\ChronoHostContext.cs" />
+    <Compile Include="Host\HostSettings.cs" />
+    <Compile Include="Host\IChronoHost.cs" />
+    <Compile Include="Host\IChronoHostProvider.cs" />
+    <Compile Include="Host\Services\AdministrationService.cs" />
+    <Compile Include="Host\Services\ClientService.cs" />
+    <Compile Include="Host\Services\ISessionModeService.cs" />
+    <Compile Include="Host\Services\SessionModeService.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Snapshot.cs" />
+    <Compile Include="Storages\FileStorage.cs" />
     <Compile Include="Storages\IInMemoryStorage.cs" />
     <Compile Include="Storages\InMemoryStorage.cs" />
     <Compile Include="Storages\IStorage.cs" />
     <Compile Include="Storages\StorageSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

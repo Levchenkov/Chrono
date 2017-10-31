@@ -1,7 +1,6 @@
 using System;
+using Chrono.DataProviders;
 using Chrono.Exceptions;
-using Chrono.FileSystem.DataProviders;
-using Chrono.FileSystem.Storages;
 using Chrono.Storages;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

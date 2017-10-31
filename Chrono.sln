@@ -5,21 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Host.WCF", "Chrono.Host.WCF\Chrono.Host.WCF.csproj", "{2D59BDB8-E5B2-4EFE-B05E-6722842890BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Host", "Chrono.Host\Chrono.Host.csproj", "{24BC5ED6-582C-4808-A99F-8C9F82A4724C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono", "Chrono\Chrono.csproj", "{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.FileSystem", "Chrono.FileSystem\Chrono.FileSystem.csproj", "{A376A409-3EC8-4ED3-8AF1-52E7A63B3650}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.EntityFramework", "Chrono.EntityFramework\Chrono.EntityFramework.csproj", "{F1723503-D45E-41E2-BA40-77BE3471BCDE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Database", "Chrono.Database\Chrono.Database.csproj", "{45E7D076-54A6-4D8D-AE3E-0831FE27B3F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client", "Chrono.Client\Chrono.Client.csproj", "{48AAED0C-E978-42A6-A091-39FAC3C9814A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client.MVC", "Chrono.Client.MVC\Chrono.Client.MVC.csproj", "{FDD6FD31-8104-4F8F-9407-61B4446FDB71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Client.Autofac", "Chrono.Client.Autofac\Chrono.Client.Autofac.csproj", "{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Autofac", "Chrono.Autofac\Chrono.Autofac.csproj", "{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Administration", "Chrono.Administration\Chrono.Administration.csproj", "{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}"
 EndProject
@@ -34,8 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{729AF20C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Functional.Tests", "Chrono.Functional.Tests\Chrono.Functional.Tests.csproj", "{E7AFA58D-82E3-4263-98E1-6E8E60A07999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.SelfHosted.Autofac", "Chrono.SelfHosted.Autofac\Chrono.SelfHosted.Autofac.csproj", "{D5533427-0E10-4E6E-9303-7A55BBAC8460}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,30 +34,10 @@ Global
 		{2D59BDB8-E5B2-4EFE-B05E-6722842890BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D59BDB8-E5B2-4EFE-B05E-6722842890BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D59BDB8-E5B2-4EFE-B05E-6722842890BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24BC5ED6-582C-4808-A99F-8C9F82A4724C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24BC5ED6-582C-4808-A99F-8C9F82A4724C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24BC5ED6-582C-4808-A99F-8C9F82A4724C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24BC5ED6-582C-4808-A99F-8C9F82A4724C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2A3625-67C5-4E7E-9348-CD1BBD093E2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A376A409-3EC8-4ED3-8AF1-52E7A63B3650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A376A409-3EC8-4ED3-8AF1-52E7A63B3650}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A376A409-3EC8-4ED3-8AF1-52E7A63B3650}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A376A409-3EC8-4ED3-8AF1-52E7A63B3650}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1723503-D45E-41E2-BA40-77BE3471BCDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1723503-D45E-41E2-BA40-77BE3471BCDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1723503-D45E-41E2-BA40-77BE3471BCDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1723503-D45E-41E2-BA40-77BE3471BCDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45E7D076-54A6-4D8D-AE3E-0831FE27B3F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45E7D076-54A6-4D8D-AE3E-0831FE27B3F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45E7D076-54A6-4D8D-AE3E-0831FE27B3F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45E7D076-54A6-4D8D-AE3E-0831FE27B3F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48AAED0C-E978-42A6-A091-39FAC3C9814A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDD6FD31-8104-4F8F-9407-61B4446FDB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,10 +62,6 @@ Global
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

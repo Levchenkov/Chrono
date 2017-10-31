@@ -64,13 +64,13 @@
       <Project>{2d67b919-a1ae-450c-a3e7-7b04410af5af}</Project>
       <Name>Chrono.Administration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
-      <Project>{48aaed0c-e978-42a6-a091-39fac3c9814a}</Project>
-      <Name>Chrono.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chrono.Host.Console\Chrono.Host.Console.csproj">
       <Project>{5957F74C-D7FA-4C19-B521-5A9519CB7EB3}</Project>
       <Name>Chrono.Host.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chrono\Chrono.csproj">
+      <Project>{ae2a3625-67c5-4e7e-9348-cd1bbd093e2a}</Project>
+      <Name>Chrono</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

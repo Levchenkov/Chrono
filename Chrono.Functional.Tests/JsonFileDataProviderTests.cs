@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Chrono.FileSystem.DataProviders;
+using Chrono.DataProviders;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
