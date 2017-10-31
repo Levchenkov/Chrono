@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A7783E56-81A3-4EB8-AB0A-565F4D2D154A}</ProjectGuid>
+    <ProjectGuid>{D5533427-0E10-4E6E-9303-7A55BBAC8460}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chrono.Client.Autofac</RootNamespace>
-    <AssemblyName>Chrono.Client.Autofac</AssemblyName>
+    <RootNamespace>Chrono.SelfHosted.Autofac</RootNamespace>
+    <AssemblyName>Chrono.SelfHosted.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,16 +34,8 @@
       <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Extras.DynamicProxy, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Extras.DynamicProxy.4.2.1\lib\net45\Autofac.Extras.DynamicProxy.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChronoInterceptor.cs" />
+    <Compile Include="ChronoModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,12 +56,20 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chrono.Administration\Chrono.Administration.csproj">
-      <Project>{2D67B919-A1AE-450C-A3E7-7B04410AF5AF}</Project>
+      <Project>{2d67b919-a1ae-450c-a3e7-7b04410af5af}</Project>
       <Name>Chrono.Administration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chrono.Client.Autofac\Chrono.Client.Autofac.csproj">
+      <Project>{a7783e56-81a3-4eb8-ab0a-565f4d2d154a}</Project>
+      <Name>Chrono.Client.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chrono.Client\Chrono.Client.csproj">
-      <Project>{48AAED0C-E978-42A6-A091-39FAC3C9814A}</Project>
+      <Project>{48aaed0c-e978-42a6-a091-39fac3c9814a}</Project>
       <Name>Chrono.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chrono.Host\Chrono.Host.csproj">
+      <Project>{24bc5ed6-582c-4808-a99f-8c9f82a4724c}</Project>
+      <Name>Chrono.Host</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

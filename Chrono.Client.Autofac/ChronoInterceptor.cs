@@ -10,34 +10,25 @@ namespace Chrono.Client.Autofac
     {
         private readonly IClientService clientService;
         private readonly IChronoSesssionIdHolder sessionIdHolder;
-        private readonly IAdministrationService administrationService;
 
 
-        public ChronoInterceptor(IClientService clientService, IAdministrationService administrationService, IChronoSesssionIdHolder sessionIdHolder)
+        public ChronoInterceptor(IClientService clientService, IChronoSesssionIdHolder sessionIdHolder)
         {
             this.clientService = clientService;
-            this.administrationService = administrationService;
             this.sessionIdHolder = sessionIdHolder;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            if (administrationService.ShouldIntercept(invocation.TargetType.FullName))
-            {
-                var sessionId = sessionIdHolder.GetSessionId();
+            var sessionId = sessionIdHolder.GetSessionId();
 
-                if (sessionId == null)
-                {
-                    invocation.Proceed();
-                }
-                else
-                {
-                    ProceedWithChrono(invocation, sessionId);
-                }
+            if (sessionId == null)
+            {
+                invocation.Proceed();
             }
             else
             {
-                invocation.Proceed();
+                ProceedWithChrono(invocation, sessionId);
             }
         }
 

@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{729AF20C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.Functional.Tests", "Chrono.Functional.Tests\Chrono.Functional.Tests.csproj", "{E7AFA58D-82E3-4263-98E1-6E8E60A07999}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chrono.SelfHosted.Autofac", "Chrono.SelfHosted.Autofac\Chrono.SelfHosted.Autofac.csproj", "{D5533427-0E10-4E6E-9303-7A55BBAC8460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7AFA58D-82E3-4263-98E1-6E8E60A07999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5533427-0E10-4E6E-9303-7A55BBAC8460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

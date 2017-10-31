@@ -2,19 +2,13 @@
 
 namespace Chrono.Administration
 {
-    public interface IAdministrationService
+    public interface IAdministrationService : IChronoSessionManager
     {
-        bool ShouldIntercept(string classFullName);
-
         void RecordSession(string sessionId);
 
         void PlaySession(string sessionId);
 
         ChronoSession CreateSession();
-
-        ChronoSession CreateSession(string sessionId);
-
-        void CloseSession(string sessionId);
 
         void RemoveSession(string sessionId);
 

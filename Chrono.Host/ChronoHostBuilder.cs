@@ -9,14 +9,14 @@ namespace Chrono.Host
 {
     public class ChronoHostBuilder
     {
-        internal ChronoHostContext HostContext
+        internal ChronoHost ChronoHost
         {
             get;
         }
 
         public ChronoHostBuilder()
         {
-            HostContext = new ChronoHostContext();         
+            ChronoHost = new ChronoHost();         
         }
 
         internal Func<StorageSettings, IStorage> StorageProvider
@@ -26,12 +26,6 @@ namespace Chrono.Host
         }
 
         internal Func<HostSettings> HostSettingsProvider
-        {
-            get;
-            set;
-        }
-
-        internal Func<ChronoConfiguration> ConfigurationProvider
         {
             get;
             set;
@@ -47,13 +41,6 @@ namespace Chrono.Host
         public ChronoHostBuilder UseHostSettings(HostSettings settings)
         {
             HostSettingsProvider = () => settings;
-
-            return this;
-        }
-
-        public ChronoHostBuilder UseConfiguration(ChronoConfiguration configuration)
-        {
-            ConfigurationProvider = () => configuration;
 
             return this;
         }
@@ -88,15 +75,15 @@ namespace Chrono.Host
             }
         }
 
-        protected Func<IStorage, ChronoConfiguration, IAdministrationService> AdministrationServiceProvider
+        protected Func<IStorage, IAdministrationService> AdministrationServiceProvider
         {
             get
             {
-                return (storage, config) => new AdministrationService(storage, config);
+                return storage => new AdministrationService(storage);
             }
         }
 
-        public IChronoHostContext Build()
+        public IChronoHost Build()
         {
             if(StorageProvider == null)
             {
@@ -118,18 +105,11 @@ namespace Chrono.Host
                 IsEmptySessionAllowed = hostSettings.IsEmptySessionAllowed
             };
 
-            ChronoConfiguration configuration= null;
-
-            if (ConfigurationProvider != null)
-            {
-                configuration = ConfigurationProvider();
-            }
-
             var storage = StorageProvider(storageSettings);
-            HostContext.ClientService = ClientServiceProvider(storage);
-            HostContext.AdministrationService = AdministrationServiceProvider(storage, configuration);
+            ChronoHost.ClientService = ClientServiceProvider(storage);
+            ChronoHost.AdministrationService = AdministrationServiceProvider(storage);
 
-            return HostContext;
+            return ChronoHost;
         }
 
         private TType MergeProperties<TType>(TType defaultValues, TType customValues) where TType : new()

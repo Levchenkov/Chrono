@@ -1,26 +1,8 @@
-﻿using System;
-using Chrono.Client;
-using Chrono.Storages;
-using Chrono.Host.Services;
-using Chrono.Administration;
-
-namespace Chrono.Host
+﻿namespace Chrono.Host
 {
-    public class ChronoHostContext : IChronoHostContext
+    public class ChronoHostContext 
     {
-        public static IChronoHostContext Current
-        {
-            get;
-            set;
-        }
-
-        public IClientService ClientService
-        {
-            get;
-            set;
-        }
-
-        public IAdministrationService AdministrationService
+        public static IChronoHost Current
         {
             get;
             set;

@@ -1,10 +1,9 @@
 ﻿using Chrono.Administration;
 using Chrono.Client;
-using Chrono.Storages;
 
 namespace Chrono.Host
 {
-    public interface IChronoHostContext
+    public interface IChronoHost
     {
         IClientService ClientService
         {
