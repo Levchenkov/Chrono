@@ -133,7 +133,7 @@ namespace Chrono.DataProviders
 
         private string GetRootDirectoryPath()
         {
-            return Path.Combine(Environment.CurrentDirectory, "Sessions");
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sessions");
         }
 
         private string GetPathForSession(string sessionId)
