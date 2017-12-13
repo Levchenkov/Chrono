@@ -70,5 +70,7 @@ public class ChronoSesssionIdProvider : IChronoSesssionIdProvider
 
 Release Notes
 ---
+#### 0.1.1
+Changed output directory for sessions.
 #### 0.1.0
 First release.
