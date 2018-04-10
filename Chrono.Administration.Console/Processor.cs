@@ -14,7 +14,10 @@ namespace Chrono.Administration.Console
             while (isRunning)
             {
                 var consoleInput = ReadFromConsole();
-                if (string.IsNullOrWhiteSpace(consoleInput)) continue;
+                if (string.IsNullOrWhiteSpace(consoleInput))
+                {
+                    continue;
+                }
 
                 try
                 {

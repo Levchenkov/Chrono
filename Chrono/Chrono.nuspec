@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>Chrono</id>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <title>Chrono</title>
     <authors>Eugene Levchenkov</authors>
     <owners>Eugene Levchenkov</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Logs method parameters and it result.</description>
     <releaseNotes>Changed output directory.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <copyright>Copyright 2017 - 2018</copyright>
     <tags>logger logging logs</tags>
     <dependencies>
         <group targetFramework="net">
